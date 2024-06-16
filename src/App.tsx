@@ -1,8 +1,10 @@
-import ToDoInput from "./components/todoInput";
-
 const App = () => {
   return (
-    <ToDoInput />
+    <>
+      <header id="header" className="header">header</header>
+      <main id="main" className="main">main</main>
+      <footer id="footer" className="footer">footer</footer>
+    </>
   );
 }
  

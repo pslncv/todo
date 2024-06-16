@@ -3,11 +3,21 @@ import Modal from "./components/Modal";
 
 const App = () => {
 
-    const [todoList, setTodoList] = useState<any>([])
+    const [todoItem, setTodoItem] = useState<string>('')
+    const [todoList, setTodoList] = useState<any>([
+            "Create To-Do list",
+            "Make a coffe"
+    ]);
 
-    function handleSubmit(event: React.KeyboardEvent<HTMLFormElement>) {
-        event.preventDefault();
-        console.log('Submit!');
+    function handleSubmit(e: React.KeyboardEvent<HTMLFormElement>) {
+        e.preventDefault();
+        console.log(todoItem);        
+        setTodoList((prev: any) => [...prev, todoItem])
+        setTodoItem('')
+    }
+
+    function handleTodoValue(e: React.ChangeEvent<HTMLInputElement>) {
+        setTodoItem(e.target.value)
     }
 
     return (
@@ -27,13 +37,22 @@ const App = () => {
                     <form
                         className="todo__form"
                         onSubmit={handleSubmit}>
-                        <label className="todo__label">Что делаем?</label>
+                        <label
+                            htmlFor="todo__input"
+                            className="todo__label"
+                            >Что делаем?</label>
                         <input
+                            id="todo__input"
                             className="todo__input"
                             type="text"
                             placeholder="Сделать завтрак..."
+                            value={todoItem}
+                            onChange={handleTodoValue}
                             />
                     </form>
+                </div>
+                <div className="todo-list">
+                    {todoList.map((item: any) => <div key={item?.id}>{item}</div>)}
                 </div>
             </main>
 

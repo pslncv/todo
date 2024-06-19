@@ -1,19 +1,19 @@
 import { useState } from "react";
 import Modal from "./components/Modal";
+import { todos } from "./data/todoList";
 
 const App = () => {
 
     const [todoItem, setTodoItem] = useState<string>('')
-    const [todoList, setTodoList] = useState<any>([
-            "Create To-Do list",
-            "Make a coffe"
-    ]);
+    const [todoList, setTodoList] = useState<ITodoItem[]>(todos);
 
     function handleSubmit(e: React.KeyboardEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(todoItem);        
-        setTodoList((prev: any) => [...prev, todoItem])
-        setTodoItem('')
+        const newTodo = {
+            id: Date.now(),
+            title: todoItem
+        }
+        setTodoList(prev => [...prev, newTodo])
     }
 
     function handleTodoValue(e: React.ChangeEvent<HTMLInputElement>) {
@@ -52,7 +52,7 @@ const App = () => {
                     </form>
                 </div>
                 <div className="todo-list">
-                    {todoList.map((item: any) => <div key={item?.id}>{item}</div>)}
+                    {todoList.map((todo: ITodoItem) => <div key={todo.id}>{todo.title}</div>)}
                 </div>
             </main>
 

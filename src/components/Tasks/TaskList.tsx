@@ -1,6 +1,6 @@
 const TaskList = ({children}: {children : React.ReactNode}) => {
     return (
-        <ul className="task-list">
+        <ul className="task__list">
             {children}
         </ul>
     )

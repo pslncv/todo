@@ -2,6 +2,6 @@ interface ITaskItems {
     id: number;
     key?: number;
     title: string;
-    date: string;
-    status: string;
+    date: any;
+    status: boolean;
 }

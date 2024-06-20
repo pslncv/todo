@@ -1,4 +1,4 @@
-interface ITodoItem {
+interface ITaskItems {
     id: number;
     title: string;
 }

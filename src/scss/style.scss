@@ -10,6 +10,10 @@ html, body {
     height: 100%;
 }
 
+ul, ol {
+    list-style: none;
+}
+
 #root {
     min-height: 100%;
     display: flex;
@@ -59,6 +63,7 @@ html, body {
 }
 
 #main {
+    padding: 0 15px;
     flex: 1 1 auto;
 }
 
@@ -67,8 +72,8 @@ html, body {
     justify-content: space-between;
 }
 
-.todo {
-    width: 800px;
+.task {
+    max-width: 800px;
     margin: 30px auto;
 
     &__form {
@@ -94,8 +99,8 @@ html, body {
     }
 }
 
-.todo-list {
-    width: 800px;
+.task-list {
+    max-width: 800px;
     margin: 30px auto;
     padding: 15px;
     border: black 2px dashed;

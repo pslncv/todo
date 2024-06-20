@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { taskItems } from "../data/todoList";
+import Task from "./Tasks/Task";
+import TaskList from "./Tasks/TaskList";
+import TaskForm from "./Tasks/TaskForm";
 
 const Main = () => {
 
@@ -8,9 +11,12 @@ const Main = () => {
 
     function handleSubmit(e: React.KeyboardEvent<HTMLFormElement>) {
         e.preventDefault();
-        const newTask = {
+        const newTask: ITaskItems = {
             id: Date.now(),
-            title: task
+            key: Date.now(),
+            title: task,
+            date: (Date.now()).toString(),
+            status: "active,"
         }
         setTaskList(prev => [...prev, newTask])
         setTask('')
@@ -22,30 +28,17 @@ const Main = () => {
 
     return (
         <main id="main" className="main">
-            <div className="task">
-                <form
-                className="task__form"
-                onSubmit={handleSubmit}>    
-
-                    <label
-                    htmlFor="task__input"
-                    className="task__label"
-                    >Что делаем?</label>
-
-                    <input
-                    id="task__input"
-                    className="task__input"
-                    type="text"
-                    placeholder="Сделать завтрак..."
-                    value={task}
-                    onChange={handleTaskValue}
-                    />
-
-                </form>
-            </div>
-            <ul className="task-list">
-                {taskList.map((task: ITaskItems) => <li key={task.id}>{task.title}</li>)}
-            </ul>
+            <TaskForm
+                value={task} 
+                change={handleTaskValue}
+                submit={handleSubmit}
+            />
+            <TaskList>
+                {taskList.map((task: ITaskItems) => <Task
+                    task={task}
+                    key={task.id}
+                />)}
+            </TaskList>
         </main>
     );
 }

@@ -73,10 +73,10 @@ ul, ol {
 }
 
 .task {
-    max-width: 800px;
-    margin: 30px auto;
-
+    
     &__form {
+        max-width: 800px;
+        margin: 30px auto;
         padding: 15px;
         border: black 2px dashed;
         border-radius: 10px;
@@ -97,11 +97,15 @@ ul, ol {
             border: red 2px solid;
         }
     }
+
+    &__item {
+        padding: 10px;
+    }
 }
 
 .task-list {
     max-width: 800px;
+    background-color: #fbf0e7fe;
     margin: 30px auto;
     padding: 15px;
-    border: black 2px dashed;
 }

@@ -9,9 +9,8 @@ const Main = () => {
 
     const [task, setTask] = useState<string>('')
     const [taskList, setTaskList] = useState<ITaskItems[]>(taskItems);
-    // const [taskList, setTaskList] = useState<ITaskItems[]>([]);
 
-    function handleSubmit(e: React.KeyboardEvent<HTMLFormElement>) {
+    function submitForm(e: React.KeyboardEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const date = new Date();
@@ -30,28 +29,32 @@ const Main = () => {
         }
 
         setTaskList(prev => [...prev, newTask]);
-        setTask('');
-        console.log(taskList);
-        
+        setTask('');     
     }
 
-    function handleTaskValue(e: React.ChangeEvent<HTMLInputElement>) {
+    function createTask(e: React.ChangeEvent<HTMLInputElement>) {
         setTask(e.target.value)
+    }
+
+    const deleteTask = (id: number): void => {
+        setTaskList(prevTasks => prevTasks.filter(task => task.id !== id))
     }
 
     return (
         <main id="main" className="main">
             <TaskForm
                 value={task} 
-                change={handleTaskValue}
-                submit={handleSubmit}
+                change={createTask}
+                create={submitForm}
             />
-            <TaskList>
-                {taskList.map((task: ITaskItems) => <Task
-                    task={task}
-                    key={task.id}
-                />) || <Empty />}
-            </TaskList>
+            {taskList.length !== 0
+                ?   <TaskList>
+                        {taskList.map((task: ITaskItems) => <Task
+                            task={task}
+                            key={task.id}
+                            remove={() => deleteTask(task.id)}/>)}
+                    </TaskList>
+                : <Empty />}
         </main>
     );
 }

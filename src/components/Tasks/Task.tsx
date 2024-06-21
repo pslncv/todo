@@ -2,7 +2,12 @@ import { useState } from "react";
 import Edit from "../../img/components/Edit";
 import Delete from "../../img/components/Delete";
 
-const Task = ({task} : {task: ITaskItems}) => {
+interface TaskProps {
+    task: ITaskItems;
+    remove: () => void;
+}
+
+const Task = ({task, remove}: TaskProps) => {
 
     const [taskComplete, setTaskComplete] = useState<boolean>(false)
 
@@ -21,8 +26,14 @@ const Task = ({task} : {task: ITaskItems}) => {
                 <div className="task__date">{task.date}</div>
             </div>
             <div className="task__actions">
-                <button className="task__edit"><Edit color="#ff9f32"/></button>
-                <button className="task__delete"><Delete color="#ff9f32"/></button>
+                <button className="task__edit">
+                    <Edit color="#ff9f32"/>
+                </button>
+                <button
+                    className="task__delete"
+                    onClick={remove}>
+                    <Delete color="#ff9f32"/>
+                </button>
             </div>
         </li>
     )

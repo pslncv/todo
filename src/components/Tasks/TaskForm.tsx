@@ -1,12 +1,12 @@
 interface TaskFormProps {
     value: string,
     change: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    submit: (e: React.KeyboardEvent<HTMLFormElement>) => void
+    create: (e: React.KeyboardEvent<HTMLFormElement>) => void
 }
 
-const TaskForm = ({value, change, submit}: TaskFormProps) => {
+const TaskForm = ({value, change, create}: TaskFormProps) => {
     return (
-        <form className="task__form" onSubmit={submit}>
+        <form className="task__form" onSubmit={create}>
             <label htmlFor="task__input" className="task__label">Что делаем?</label>
             <input
                 id="task__input"

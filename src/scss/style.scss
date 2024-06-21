@@ -64,7 +64,7 @@ ul, ol {
 
 #header,
 #footer {
-    background-color: pink;
+    background-color: #f9c79efe;
     padding: 10px 15px;
 }
 
@@ -98,15 +98,16 @@ ul, ol {
     &__input {
         padding: 7px;
         outline: none;
+        border: #f9c79efe 4px solid;
 
         &:focus {
-            border: red 2px solid;
+            border: #e91e63 4px solid;
         }
     }
 
     &__list {
         max-width: 800px;
-        background-color: #fbf0e7fe;
+        background-color: #f9c79efe;
         margin: 30px auto;
         padding: 15px;
         display: flex;
@@ -115,8 +116,12 @@ ul, ol {
     }
 
     &__item {
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
         display: flex;
         align-items: center;
+        cursor: default;
     }
 
     &__checkbox {
@@ -152,16 +157,23 @@ ul, ol {
         outline: none;
         cursor: pointer;
 
-        &:active {
-            transform: scale(0.9);
-        }
-
         & > svg {            
             height: 15px;
             width: 15px;
             position: relative;
             top: 1px;
         }
+
+        &:active {
+            transform: scale(0.9);
+        }
+
+        &:focus {
+            height: 27px;
+            width: 27px;
+            border: $orange 4px solid;
+        }
+
     }
 
     &__edit {
@@ -171,6 +183,6 @@ ul, ol {
     }
 
     &__empty {
-        margin: 0 auto;
+        text-align: center;
     }
 }

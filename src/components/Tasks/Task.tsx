@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Edit from "../../img/components/Edit";
+import Delete from "../../img/components/Delete";
 
 const Task = ({task} : {task: ITaskItems}) => {
 
@@ -8,8 +10,9 @@ const Task = ({task} : {task: ITaskItems}) => {
 
     return (
         <li className="task__item">
-            <input type="checkbox" 
-                className="task__status" 
+            <input
+                type="checkbox" 
+                className="task__checkbox" 
                 checked={taskComplete}
                 onChange={handlerCheck}
             />
@@ -18,8 +21,8 @@ const Task = ({task} : {task: ITaskItems}) => {
                 <div className="task__date">{task.date}</div>
             </div>
             <div className="task__actions">
-                <button className="task__edit">!</button>
-                <button className="task__delete">X</button>
+                <button className="task__edit"><Edit color="#ff9f32"/></button>
+                <button className="task__delete"><Delete color="#ff9f32"/></button>
             </div>
         </li>
     )

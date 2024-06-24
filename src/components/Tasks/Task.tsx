@@ -4,22 +4,24 @@ import Delete from "../../img/components/Delete";
 
 interface TaskProps {
     task: ITaskItems;
-    remove: () => void;
+    removeTask: (id: number) => void;
 }
 
-const Task = ({task, remove}: TaskProps) => {
+const Task = ({task, removeTask}: TaskProps) => {
 
     const [taskComplete, setTaskComplete] = useState<boolean>(false)
 
-    const handlerCheck = (e: React.ChangeEvent<HTMLInputElement>) => setTaskComplete(e.target.checked)
+    const checkTask = () => {
+        setTaskComplete(prev => !prev)
+    }
 
     return (
-        <li className="task__item">
+        <li className="task__item"
+            onClick={checkTask}>
             <input
                 type="checkbox" 
                 className="task__checkbox" 
                 checked={taskComplete}
-                onChange={handlerCheck}
             />
             <div className="task__body">
                 <div className="task__title">{task.title}</div>
@@ -31,7 +33,7 @@ const Task = ({task, remove}: TaskProps) => {
                 </button>
                 <button
                     className="task__delete"
-                    onClick={remove}>
+                    onClick={() => removeTask(task.id)}>
                     <Delete color="#ff9f32"/>
                 </button>
             </div>

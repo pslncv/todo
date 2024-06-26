@@ -29,12 +29,12 @@ const Task = ({task, removeTask}: TaskProps) => {
             </div>
             <div className="task__actions">
                 <button className="task__edit">
-                    <Edit color="#ff9f32"/>
+                    <Edit color="#c4acff"/>
                 </button>
                 <button
                     className="task__delete"
                     onClick={() => removeTask(task.id)}>
-                    <Delete color="#ff9f32"/>
+                    <Delete color="#c4acff"/>
                 </button>
             </div>
         </li>

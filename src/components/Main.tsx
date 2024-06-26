@@ -4,6 +4,7 @@ import TaskList from "./Tasks/TaskList";
 import TaskForm from "./Tasks/TaskForm";
 import Empty from "./Tasks/Empty";
 import { taskItems } from "../data/todoList";
+import Button from "./Button";
 
 const Main = () => {
 
@@ -45,6 +46,10 @@ const Main = () => {
                 value={task} 
                 change={inputTask}
                 create={createTask}
+            />
+            <Button
+                title={"+ Добавить задачу"}
+                handler={() => console.log('click')}
             />
             {taskList.length !== 0
                 ?   <TaskList>

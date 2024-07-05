@@ -1,13 +1,15 @@
-import { useContext } from "react";
-import { ModalContext } from "../context/Modal";
+import C1 from "./C1";
 
-const Header = () => {
-    const {open} = useContext(ModalContext)
+interface Header {
+    openModal: (component: React.ReactNode) => void
+}
+
+const Header: React.FC<Header> = ({openModal}) => {
 
     return (
         <header id="header" className="header">
             <div>{"<PSLNCV />"}</div>
-            <div onClick={open}
+            <div onClick={() => openModal(<C1 />)}
                 className="modal__open"
                 >modal</div>
         </header>

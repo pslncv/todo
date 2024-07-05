@@ -7,7 +7,13 @@ import { taskItems } from "../data/todoList";
 import Button from "./Button";
 import Modal from "./Modal";
 
-const Main = () => {
+interface Main {
+    content: React.ReactNode,
+    openModal: (component: React.ReactNode) => void,
+    closeModal: () => void
+}
+
+const Main: React.FC<Main> = ({openModal, closeModal, content}) => {
 
     const [task, setTask] = useState<string>('');
     const [taskList, setTaskList] = useState<ITaskItems[]>(taskItems);
@@ -51,6 +57,7 @@ const Main = () => {
                 />
                 <Button
                     title={"+ Добавить задачу"}
+                    openModal={openModal}
                 />
                 {taskList.length !== 0
                     ?   <TaskList>
@@ -61,7 +68,7 @@ const Main = () => {
                         </TaskList>
                     : <Empty />}
             </main>
-            <Modal/>
+            <Modal children={content} closeModal={closeModal}/>
         </>
     );
 }

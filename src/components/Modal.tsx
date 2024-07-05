@@ -1,9 +1,14 @@
 import { useContext } from "react";
 import { ModalContext } from "../context/Modal";
 
-const Modal = () => {
+interface Modal {
+    children: React.ReactNode,
+    closeModal: (parameter: null) => void
+}
 
-    const {modal, close} = useContext(ModalContext)
+const Modal: React.FC<Modal> = ({children, closeModal}) => {
+    
+    const {modal} = useContext(ModalContext)
 
     return (
         modal && 
@@ -11,9 +16,9 @@ const Modal = () => {
             <div className="modal__form">
                 <button
                     className="modal__close"
-                    onClick={close}>X
+                    onClick={() => closeModal(null)}>X
                 </button>
-                <p></p>
+                <p>{ children }</p>
             </div>
         </div>
     )

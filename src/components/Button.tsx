@@ -1,11 +1,15 @@
-import { useContext } from "react";
-import { ModalContext } from "../context/Modal";
+import C2 from "./C2";
 
-const Button = ({title}: {title: string}) => {
-    const {open} = useContext(ModalContext)
+interface Button {
+    title: string,
+    openModal: (component: React.ReactNode) => void
+}
+
+const Button: React.FC<Button> = ({title, openModal}) => {
+    
     return (
         <div className="task__create">
-            <button onClick={open}>
+            <button onClick={() => openModal(<C2 />)}>
                 <span>{title}</span>
             </button>
         </div>

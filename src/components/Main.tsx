@@ -5,6 +5,7 @@ import TaskForm from "./Tasks/TaskForm";
 import Empty from "./Tasks/Empty";
 import { taskItems } from "../data/todoList";
 import Button from "./Button";
+import Modal from "./Modal";
 
 const Main = () => {
 
@@ -41,25 +42,27 @@ const Main = () => {
     }
 
     return (
-        <main id="main" className="main">
-            <TaskForm
-                value={task} 
-                change={inputTask}
-                create={createTask}
-            />
-            <Button
-                title={"+ Добавить задачу"}
-                handler={() => console.log('click')}
-            />
-            {taskList.length !== 0
-                ?   <TaskList>
-                        {taskList.map((task: ITaskItems) => <Task
-                            task={task}
-                            key={task.id}
-                            removeTask={removeTask}/>)}
-                    </TaskList>
-                : <Empty />}
-        </main>
+        <>
+            <main id="main" className="main">
+                <TaskForm
+                    value={task} 
+                    change={inputTask}
+                    create={createTask}
+                />
+                <Button
+                    title={"+ Добавить задачу"}
+                />
+                {taskList.length !== 0
+                    ?   <TaskList>
+                            {taskList.map((task: ITaskItems) => <Task
+                                task={task}
+                                key={task.id}
+                                removeTask={removeTask}/>)}
+                        </TaskList>
+                    : <Empty />}
+            </main>
+            <Modal/>
+        </>
     );
 }
  

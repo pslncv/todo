@@ -55,6 +55,8 @@ const Main: React.FC<Main> = ({openModal, closeModal, content}) => {
                     change={inputTask}
                     create={createTask}
                 />
+                <h2 className="title">Список задач</h2>
+                <h3 className="subtitle">Используй своё время эффективно!</h3>
                 <Button
                     title={"+ Добавить задачу"}
                     openModal={openModal}

@@ -16,12 +16,12 @@ const Task = ({task, removeTask}: TaskProps) => {
     }
 
     return (
-        <li className="task__item"
-            onClick={checkTask}>
+        <li className="task__item">
             <input
                 type="checkbox" 
                 className="task__checkbox" 
                 checked={taskComplete}
+                onChange={checkTask}
             />
             <div className="task__body">
                 <div className="task__title">{task.title}</div>

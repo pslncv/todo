@@ -148,13 +148,13 @@ ul, ol {
         border-radius: 5px;
         display: flex;
         align-items: center;
-        cursor: pointer;
     }
 
     &__checkbox {
         height: 25px;
         width: 25px;
         margin: 0 15px 0 0;
+        cursor: pointer;
     }
 
     &__body {

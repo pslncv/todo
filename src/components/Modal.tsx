@@ -18,7 +18,7 @@ const Modal: React.FC<Modal> = ({children, closeModal}) => {
                     className="modal__close"
                     onClick={() => closeModal(null)}>X
                 </button>
-                <p>{ children }</p>
+                <div>{ children }</div>
             </div>
         </div>
     )

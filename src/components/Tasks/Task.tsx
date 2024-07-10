@@ -1,7 +1,4 @@
 import { useState } from "react";
-import Edit from "../../img/components/Edit";
-import Delete from "../../img/components/Delete";
-
 interface TaskProps {
     task: ITaskItems;
     removeTask: (id: number) => void;
@@ -29,12 +26,12 @@ const Task = ({task, removeTask}: TaskProps) => {
             </div>
             <div className="task__actions">
                 <button className="task__edit">
-                    <Edit color="#c4acff"/>
+                    <img src="./src/img/edit.png" alt="Редактировать задачу"/>
                 </button>
                 <button
                     className="task__delete"
                     onClick={() => removeTask(task.id)}>
-                    <Delete color="#c4acff"/>
+                    <img src="./src/img/delete.png" alt="Удалить задачу"/>
                 </button>
             </div>
         </li>

@@ -1,17 +1,9 @@
-import C1 from "./C1";
-
-interface Header {
-    openModal: (component: React.ReactNode) => void
-}
-
-const Header: React.FC<Header> = ({openModal}) => {
+const Header: React.FC = () => {
 
     return (
         <header id="header" className="header">
-            <div>{"<PSLNCV />"}</div>
-            <div onClick={() => openModal(<C1 />)}
-                className="modal__open"
-                >modal</div>
+            <div className="header__logo">{"<PSLNCV />"}</div>
+            <div className="header__theme">O</div>
         </header>
     );
 }

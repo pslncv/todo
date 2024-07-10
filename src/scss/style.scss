@@ -1,6 +1,6 @@
 // Константы
 $orange: #ff9f32;
-$purple: #c4acff;
+$blue: #307684;
 
 // Обнуление
 *,
@@ -65,7 +65,8 @@ ul, ol {
 
 #header,
 #footer {
-    background-color: $purple;
+    color: white;
+    background-color: $blue;
     padding: 10px 15px;
 }
 
@@ -83,13 +84,16 @@ ul, ol {
 .header {
     display: flex;
     justify-content: space-between;
+
+    &__theme {
+        cursor: pointer;
+    }
 }
 
 .task {
     
     // Task form
     &__form {
-        border: black 2px dashed;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -103,10 +107,10 @@ ul, ol {
     &__input {
         padding: 7px;
         outline: none;
-        border: #f9c79efe 4px solid;
+        border: $blue 4px solid;
 
         &:focus {
-            border: #e91e63 4px solid;
+            border: $orange 4px solid;
         }
     }
 
@@ -117,7 +121,7 @@ ul, ol {
         & button {
             font-size: 1.2rem;
             color: white;
-            background-color: $purple;
+            background-color: $blue;
             outline: none;
             border: none;
             border-radius: 20px;
@@ -125,7 +129,8 @@ ul, ol {
             cursor: pointer;
             transition: background-color .1s ease-in-out, transform .1s ease-in-out;
 
-            &:active {
+            &:active,
+            &:focus{
                 transform: scale(0.95);
                 background-color: $orange;
             }
@@ -134,11 +139,11 @@ ul, ol {
 
     // Task list
     &__list {
-        background-color: $purple;
+        background-color: $blue;
         padding: 15px;
         display: flex;
         flex-direction: column;
-        row-gap: 15px;
+        row-gap: 10px;
     }
 
     // Task item
@@ -177,18 +182,18 @@ ul, ol {
 
         &__edit,
         &__delete {
-            height: 25px;
-            width: 25px;
-            border: $purple 3px solid;
+            height: 30px;
+            width: 30px;
+            border: $blue 3px solid;
             background-color: transparent;
             outline: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            & > svg {            
-                height: 17px;
-                width: 17px;
+            & > img {
                 position: relative;
-                top: 1px;
             }
 
             &:active {
@@ -196,8 +201,6 @@ ul, ol {
             }
 
             &:focus {
-                height: 25px;
-                width: 25px;
                 border: $orange 3px solid;
             }
 

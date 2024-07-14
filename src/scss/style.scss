@@ -39,8 +39,7 @@ ul, ol {
     left: 0;
 
     &__form {
-        height: 600px;
-        width: 450px;
+        padding: 40px;
         background: white;
         position: relative;
     }
@@ -73,7 +72,7 @@ ul, ol {
 #main {
     width: 100%;
     max-width: 800px;
-    margin: 30px auto 0;
+    margin: 30px auto;
     padding: 0 15px;
     display: flex;
     flex-direction: column;
@@ -143,6 +142,7 @@ ul, ol {
             cursor: pointer;
             transition: background-color .1s ease-in-out, transform .1s ease-in-out;
 
+            &:hover,
             &:active,
             &:focus{
                 transform: scale(0.95);
@@ -206,20 +206,19 @@ ul, ol {
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform .04s ease-in-out;
 
             & > img {
                 position: relative;
                 transform: scale(0.9);
             }
 
-            &:active {
-                transform: scale(0.8);
-            }
-
+            &:hover,
+            &:active,
             &:focus {
+                transform: scale(0.9);
                 border: $orange 3px solid;
             }
-
         }
 
         &__edit {

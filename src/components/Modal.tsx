@@ -1,27 +1,20 @@
-import { useContext } from "react";
-import { ModalContext } from "../context/Modal";
+import { ReactNode } from "react"
 
 interface Modal {
-    children: React.ReactNode,
-    closeModal: (parameter: null) => void
+    closeModal: () => void
+    children: ReactNode
 }
 
-const Modal: React.FC<Modal> = ({children, closeModal}) => {
-    
-    const {modal} = useContext(ModalContext)
-
+export const Modal: React.FC<Modal> = ({closeModal, children}) => {
     return (
-        modal && 
         <div id="modal" className="modal">
             <div className="modal__form">
                 <button
                     className="modal__close"
-                    onClick={() => closeModal(null)}>X
+                    onClick={closeModal}>X
                 </button>
                 <div>{ children }</div>
             </div>
         </div>
     )
 }
-
-export default Modal;

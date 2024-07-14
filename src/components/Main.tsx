@@ -4,16 +4,14 @@ import TaskList from "./Tasks/TaskList";
 import TaskForm from "./Tasks/TaskForm";
 import Empty from "./Tasks/Empty";
 import { taskItems } from "../data/todoList";
-import Button from "./Button";
-import Modal from "./Modal";
+import { Button } from "./Button";
+import { Modal } from "./Modal";
 
-interface Main {
-    content: React.ReactNode,
-    openModal: (component: React.ReactNode) => void,
-    closeModal: () => void
-}
+const Main = () => {
 
-const Main: React.FC<Main> = ({openModal, closeModal, content}) => {
+    const [modal, setModal] = useState<boolean>(false)
+    const openModal = () => setModal(prev => !prev)
+    const closeModal = () => setModal(prev => !prev)
 
     const [task, setTask] = useState<string>('');
     const [taskList, setTaskList] = useState<ITaskItems[]>(taskItems);
@@ -36,7 +34,8 @@ const Main: React.FC<Main> = ({openModal, closeModal, content}) => {
         };
 
         setTaskList(prev => [...prev, newTask]);
-        setTask('');     
+        setTask('');
+        closeModal() 
     }
 
     const inputTask = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,11 +49,6 @@ const Main: React.FC<Main> = ({openModal, closeModal, content}) => {
     return (
         <>
             <main id="main" className="main">
-                <TaskForm
-                    value={task} 
-                    change={inputTask}
-                    create={createTask}
-                />
                 <h2 className="title">Список задач</h2>
                 <h3 className="subtitle">Используй своё время эффективно!</h3>
                 <Button
@@ -70,7 +64,13 @@ const Main: React.FC<Main> = ({openModal, closeModal, content}) => {
                         </TaskList>
                     : <Empty />}
             </main>
-            <Modal children={content} closeModal={closeModal}/>
+            {modal && <Modal closeModal={closeModal} children={
+                <TaskForm
+                    value={task} 
+                    change={inputTask}
+                    create={createTask}
+                />
+            }/>}
         </>
     );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDate } from "./hooks/getDate";
 import Task from "./Tasks/Task";
 import TaskList from "./Tasks/TaskList";
 import Empty from "./Tasks/Empty";
@@ -20,21 +21,12 @@ const Main = () => {
 
     const createTask = (e: React.KeyboardEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const date = new Date();
-        const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-        const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-        const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-        const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth()+1;
-        const year = date.getFullYear();
-
         const newTask: ITaskItems = {
             id: Date.now(),
             title: task,
-            date: (hour + ":" + minute + ", " + day + "." + month + "." + year),
+            date: useDate(),
             status: true,
         };
-
         setTaskList(prev => [...prev, newTask]);
         setTask('');
         closeModal() 

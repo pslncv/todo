@@ -1,11 +1,6 @@
-interface ITaskItems {
+export interface ITaskItems {
     id: number;
     title: string;
-    date: any;
+    date: string;
     status: boolean;
-}
-
-interface SvgProps {
-    color: string;
-    fill?: React.SVGAttributes<SVGSVGElement>
 }

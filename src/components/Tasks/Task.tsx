@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { ITaskItems } from "../../models";
+
 interface TaskProps {
     task: ITaskItems;
+    index: number,
     removeTask: (id: number) => void;
 }
 
-const Task = ({task, removeTask}: TaskProps) => {
+const Task: React.FC<TaskProps> = ({task, index, removeTask}) => {
 
     const [taskComplete, setTaskComplete] = useState<boolean>(false)
 
@@ -13,8 +16,9 @@ const Task = ({task, removeTask}: TaskProps) => {
     }
 
     return (
-        <li className="task__item">
+        <li className={taskComplete ? "task__item complete" : "task__item"}>
             <input
+                id={'task__checkbox_' + (index+1)}
                 type="checkbox" 
                 className="task__checkbox" 
                 checked={taskComplete}

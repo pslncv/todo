@@ -1,17 +1,19 @@
 import { useState } from "react";
 import Task from "./Tasks/Task";
 import TaskList from "./Tasks/TaskList";
-import TaskForm from "./Tasks/TaskForm";
 import Empty from "./Tasks/Empty";
 import { taskItems } from "../data/todoList";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
+import { ITaskItems } from "../models";
+import TaskForm from "./Tasks/TaskForm";
 
 const Main = () => {
 
-    const [modal, setModal] = useState<boolean>(false)
-    const openModal = () => setModal(prev => !prev)
-    const closeModal = () => setModal(prev => !prev)
+    const [showModal, setShowModal] = useState<boolean>(false)
+    // const [modalContent, setModalContent] = useState<React.ReactNode | null>(null)
+    const openModal = () => setShowModal(prev => !prev)
+    const closeModal = () => setShowModal(prev => !prev)
 
     const [task, setTask] = useState<string>('');
     const [taskList, setTaskList] = useState<ITaskItems[]>(taskItems);
@@ -57,20 +59,23 @@ const Main = () => {
                 />
                 {taskList.length !== 0
                     ?   <TaskList>
-                            {taskList.map((task: ITaskItems) => <Task
+                            {taskList.map((task, index) => <Task
+                                index={index}
                                 task={task}
                                 key={task.id}
-                                removeTask={removeTask}/>)}
+                                removeTask={removeTask}
+                                />)}
                         </TaskList>
                     : <Empty />}
             </main>
-            {modal && <Modal closeModal={closeModal} children={
-                <TaskForm
-                    value={task} 
+            <Modal
+                active={showModal}
+                closeModal={closeModal}
+                children={<TaskForm
+                    value={task}
                     change={inputTask}
-                    create={createTask}
-                />
-            }/>}
+                    create={createTask}/>}
+            />
         </>
     );
 }

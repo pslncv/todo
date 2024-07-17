@@ -1,28 +1,22 @@
-import { useState } from "react";
 import { ITaskItems } from "../../models";
 
 interface TaskProps {
     task: ITaskItems;
     index: number,
-    removeTask: (id: number) => void;
+    taskRemove: (id: number) => void;
+    taskStatusChange: (id: number, newStatus: boolean) => void;
 }
 
-const Task: React.FC<TaskProps> = ({task, index, removeTask}) => {
-
-    const [taskComplete, setTaskComplete] = useState<boolean>(false)
-
-    const checkTask = () => {
-        setTaskComplete(prev => !prev)
-    }
+const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskStatusChange}) => {
 
     return (
-        <li className={taskComplete ? "task__item complete" : "task__item"}>
+        <li className={task.status ? "task__item complete" : "task__item"}>
             <input
-                id={'task__checkbox_' + (index+1)}
+                id={'task__checkbox_' + (index)}
                 type="checkbox" 
                 className="task__checkbox" 
-                checked={taskComplete}
-                onChange={checkTask}
+                checked={task.status}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => taskStatusChange(task.id, e.target.checked)}
             />
             <div className="task__body">
                 <div className="task__title">{task.title}</div>
@@ -34,7 +28,7 @@ const Task: React.FC<TaskProps> = ({task, index, removeTask}) => {
                 </button>
                 <button
                     className="task__delete"
-                    onClick={() => removeTask(task.id)}>
+                    onClick={() => taskRemove(task.id)}>
                     <img src="./src/img/delete.png" alt="Удалить задачу"/>
                 </button>
             </div>

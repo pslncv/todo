@@ -2,21 +2,20 @@ import { ReactNode } from "react"
 
 interface Modal {
     active: boolean;
-    closeModal: () => void
+    modalClose: () => void
     children: ReactNode
 }
 
-export const Modal: React.FC<Modal> = ({active, closeModal, children}) => {
+export const Modal: React.FC<Modal> = ({active, modalClose, children}) => {
     return (
         <div
             id="modal"
             className={active ? "modal active" : 'modal'}
-            onClick={closeModal}
-            >
+            onClick={modalClose}>
             <div className="modal__form" onClick={e => e.stopPropagation()}>
                 <button
                     className="modal__close"
-                    onClick={closeModal}>X
+                    onClick={modalClose}>X
                 </button>
                 <div>{ children }</div>
             </div>

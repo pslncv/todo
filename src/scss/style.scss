@@ -3,9 +3,7 @@ $orange: #ff9f32;
 $blue: #307684;
 
 // Обнуление
-*,
-*::after,
-*::before {
+*, *::after, *::before {
     font-family: 'Rubik', 'sans-serif';
     margin: 0;
     padding: 0;
@@ -121,6 +119,7 @@ ul, ol {
     &__form {
         border-radius: 10px;
         display: flex;
+        row-gap: 5px;
         flex-direction: column;
     }
 
@@ -160,6 +159,11 @@ ul, ol {
                 background-color: $orange;
             }
         }
+    }
+
+    &__error {
+        margin: 0 auto;
+        color: red;
     }
 
     // Task list

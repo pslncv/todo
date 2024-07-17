@@ -1,10 +1,12 @@
 export const UseDate = () => {
-    const date = new Date();
-    const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-    const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-    const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth()+1;
-    const year = date.getFullYear();
-    const dateNow = (hour + ":" + minute + ", " + day + "." + month + "." + year);
-    return dateNow
+    const d = new Date()
+    const hour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours()
+    const minute = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+    const day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+    const month = d.getMonth() + 1 < 10 ? '0' + (d.getMonth()+1) : d.getMonth()+1
+    const year = d.getFullYear()
+    const week = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+    const weekday = week[d.getDay() - 1]
+    const date = (hour + ":" + minute + ", " + weekday + ", " + day + "." + month + "." + year)
+    return date
 }

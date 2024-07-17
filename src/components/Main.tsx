@@ -12,14 +12,15 @@ const Main = () => {
 
     // Работа с состоянием модального окна
     const [modalShow, setModalShow] = useState<boolean>(false)
-    const modalOpen = () => setModalShow(prev => !prev)
-    const modalClose = () => setModalShow(prev => !prev)
+    const modalOpen = () => setModalShow(true)
+    const modalClose = () => {setModalShow(false),setTimeout(() => setModalerror(false), 100)}
     const [modalError, setModalerror] = useState<boolean>(false)
     const [modalErrorText, setModalerrorText] = useState<string>('')
 
     // Работа с состоянием задач
     const [task, setTask] = useState<string>('');
     const [taskList, setTaskList] = useState<ITaskItems[]>(taskItems);
+    
     const taskCreate = (e: React.KeyboardEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (task.trim().length === 0) {

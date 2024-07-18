@@ -4,10 +4,11 @@ interface TaskProps {
     task: ITaskItems;
     index: number,
     taskRemove: (id: number) => void;
+    taskEdit: (id: number) => void;
     taskStatusChange: (id: number, newStatus: boolean) => void;
 }
 
-const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskStatusChange}) => {
+const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskEdit, taskStatusChange}) => {
 
     return (
         <li className={task.status ? "task__item complete" : "task__item"}>
@@ -23,7 +24,10 @@ const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskStatusChange}) 
                 <div className="task__date">{task.date}</div>
             </div>
             <div className="task__actions">
-                <button className="task__edit">
+                <button
+                    className="task__edit"
+                    onClick={() => taskEdit(task.id)}
+                >
                     <img src="./src/img/edit.png" alt="Редактировать задачу"/>
                 </button>
                 <button

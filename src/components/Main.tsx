@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { UseDate } from "./hooks/getDate"
-import Task from "./Tasks/Task"
-import TaskList from "./Tasks/TaskList"
-import Empty from "./Tasks/Empty"
-import { taskItems } from "../data/todoList"
+import Task from "./tasks/Task"
+import TaskList from "./tasks/TaskList"
+import Empty from "./tasks/Empty"
+import { task, taskItems } from "../data/todoList"
 import { Modal } from "./Modal"
 import { ITaskItems } from "../models"
-import TaskForm from "./Tasks/TaskForm"
+import TaskForm from "./tasks/TaskForm"
 
 const Main = () => {
 
@@ -19,7 +19,7 @@ const Main = () => {
 
     // Работа с состоянием задач
     const [task, setTask] = useState<string>('');
-    const [taskList, setTaskList] = useState<ITaskItems[]>(taskItems);
+    const [taskList, setTaskList] = useState<Array<task>>(taskItems);
     
     const taskCreate = (e: React.KeyboardEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -28,7 +28,7 @@ const Main = () => {
             setModalerrorText('Поле пустое')
             return
         } else {
-        const newTask: ITaskItems = {
+        const newTask: task = {
             id: Date.now(),
             title: task.trim(),
             date: UseDate(),
@@ -46,6 +46,12 @@ const Main = () => {
         if ((task.trim().length > 0) || (e.target.value.trim().length > 0)) {setModalerror(false)}
     }
     const taskRemove = (id: number) => setTaskList(prev => prev.filter(task => task.id !== id))
+
+    const taskEdit = (id: number) => {
+        let task = taskList.find(t => t.id === id)
+        console.log(task)
+    }
+
     const taskStatusChange = (id: number, newStatus: boolean) => {
         const target = taskList.find(t => t.id === id)
         if (target) {target.status = newStatus}
@@ -63,12 +69,6 @@ const Main = () => {
         <main id="main" className="main">
             <h2 className="title">Список задач</h2>
             <h3 className="subtitle">Используй своё время эффективно!</h3> 
-            {/* //!  Раскоментить */}
-            {/* <div className="task__create">
-                <button onClick={modalOpen}>
-                    <span>+ Добавить задачу</span>
-                </button>
-            </div>             */}
             <div style={{display: 'flex', justifyContent:'space-between'}}>
                 <div className="task__create">
                     <button onClick={modalOpen}>
@@ -88,6 +88,7 @@ const Main = () => {
                             task={task}
                             key={task.id}
                             taskRemove={taskRemove}
+                            taskEdit={taskEdit}
                             taskStatusChange={taskStatusChange}
                             />)}
                     </TaskList>

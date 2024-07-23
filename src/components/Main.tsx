@@ -5,8 +5,8 @@ import TaskList from "./tasks/TaskList"
 import Empty from "./tasks/Empty"
 import { task, taskItems } from "../data/todoList"
 import { Modal } from "./Modal"
-import { ITaskItems } from "../models"
 import TaskForm from "./tasks/TaskForm"
+import { TaskEdit } from "./tasks/TaskEdit"
 
 const Main = () => {
 
@@ -20,6 +20,7 @@ const Main = () => {
     // Работа с состоянием задач
     const [task, setTask] = useState<string>('');
     const [taskList, setTaskList] = useState<Array<task>>(taskItems);
+    const [taskEdit, setTaskEdit] = useState<number | null>(null)
     
     const taskCreate = (e: React.KeyboardEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -28,10 +29,11 @@ const Main = () => {
             setModalerrorText('Поле пустое')
             return
         } else {
+        const {date} = UseDate()
         const newTask: task = {
             id: Date.now(),
             title: task.trim(),
-            date: UseDate(),
+            date: date,
             status: false
         }
         setTaskList(prev => [...prev, newTask])
@@ -41,16 +43,15 @@ const Main = () => {
         modalClose()
         }
     }
+
     const taskCreateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTask(e.target.value);
         if ((task.trim().length > 0) || (e.target.value.trim().length > 0)) {setModalerror(false)}
     }
+
     const taskRemove = (id: number) => setTaskList(prev => prev.filter(task => task.id !== id))
 
-    const taskEdit = (id: number) => {
-        let task = taskList.find(t => t.id === id)
-        console.log(task)
-    }
+    const taskEditChange = (index: number) => setTaskEdit(index)
 
     const taskStatusChange = (id: number, newStatus: boolean) => {
         const target = taskList.find(t => t.id === id)
@@ -83,14 +84,22 @@ const Main = () => {
             </div>
             {taskList.length !== 0
                 ?   <TaskList>
-                        {taskList.map((task, index) => <Task
-                            index={index}
-                            task={task}
-                            key={task.id}
-                            taskRemove={taskRemove}
-                            taskEdit={taskEdit}
-                            taskStatusChange={taskStatusChange}
-                            />)}
+                        {taskList.map((task, index) => {
+                            if (taskEdit === index) {
+                            return <TaskEdit 
+                                task={task}
+                                key={task.id}
+                                setTaskEdit={setTaskEdit}
+                            />
+                            } else {
+                            return <Task
+                                index={index}
+                                task={task}
+                                key={task.id}
+                                taskRemove={taskRemove}
+                                taskEditChange={taskEditChange}
+                                taskStatusChange={taskStatusChange} />}
+                            })}
                     </TaskList>
                 : <Empty />}
         </main>

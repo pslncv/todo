@@ -8,5 +8,13 @@ export const UseDate = () => {
     const week = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
     const weekday = week[d.getDay() - 1]
     const date = (hour + ":" + minute + ", " + weekday + ", " + day + "." + month + "." + year)
-    return date
+
+    const getWeekday = (wd: string) => {
+        //  01.09.2024
+        const dateParts = wd.split('.');
+        const date = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
+        const week = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
+        return week[date.getDay()];
+    }
+    return {date, getWeekday}
 }

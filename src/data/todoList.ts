@@ -1,3 +1,6 @@
+import { UseDate } from "../components/hooks/getDate";
+const {getWeekday} = UseDate()
+
 // Список задач по умолчанию
 export interface task {
     id: number;
@@ -7,7 +10,22 @@ export interface task {
 }
 
 export const taskItems: Array<task> = [
-    {id: 0, title: 'Make a coffe', date: "15:15, 20.02.2024", status: false},
-    {id: 1, title: 'Eat a dinner', date: "15:15, 20.03.2024", status: false},
-    {id: 2, title: 'Create web-application', date: "15:15, 20.04.2024", status: true}
+    {
+        id: 0, 
+        title: 'Записаться к терапевту на первую группу анализов (за три месяца)', 
+        date: `09:00, ${getWeekday("02.09.2024")}, 02.09.2024`, 
+        status: false
+    },
+    {
+        id: 1, 
+        title: 'Записаться к терапевту на вторую группу анализов (за неделю)', 
+        date: `09:00, ${getWeekday("25.11.2024")}, 25.11.2024`, 
+        status: false
+    },
+    {
+        id: 3, 
+        title: 'Create web-application', 
+        date: `15:15, ${getWeekday("20.04.2024")}, 20.04.2024`, 
+        status: true
+    }
 ]

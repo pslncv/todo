@@ -1,14 +1,14 @@
-import { ITaskItems } from "../../models";
+import { task } from "../../data/todoList";
 
 interface TaskProps {
-    task: ITaskItems;
+    task: task;
     index: number,
     taskRemove: (id: number) => void;
-    taskEdit: (id: number) => void;
+    taskEditChange: (index: number) => void;
     taskStatusChange: (id: number, newStatus: boolean) => void;
 }
 
-const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskEdit, taskStatusChange}) => {
+const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskEditChange, taskStatusChange}) => {
 
     return (
         <li className={task.status ? "task__item complete" : "task__item"}>
@@ -26,8 +26,7 @@ const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskEdit, taskStatu
             <div className="task__actions">
                 <button
                     className="task__edit"
-                    onClick={() => taskEdit(task.id)}
-                >
+                    onClick={() => taskEditChange(index)}>
                     <img src="./src/img/edit.png" alt="Редактировать задачу"/>
                 </button>
                 <button

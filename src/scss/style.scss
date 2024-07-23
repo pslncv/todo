@@ -182,6 +182,7 @@ ul, ol {
         border-radius: 5px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
         &.complete {
             background-color: rgb(230, 230, 230);
@@ -215,7 +216,8 @@ ul, ol {
     }
 
         &__edit,
-        &__delete {
+        &__delete,
+        &__confirm {
             height: 30px;
             width: 30px;
             border: $blue 3px solid;

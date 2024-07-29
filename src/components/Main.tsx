@@ -59,9 +59,16 @@ const Main = () => {
         setTaskList([...taskList])
     }
 
+    const taskSaveEdit = (id: number, e:React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+        const newList = taskList.map(t => t.id === id ? {...t, title: 'Changed'} : t);
+        setTaskList(newList)
+        setTaskEdit(null);
+    }
+
     const checkState = () => {
         console.clear()
-        taskList.forEach((t, i) => console.log(i+1, t.status === true ? "V" : " "))
+        taskList.forEach((t, i) => console.log(i+1, t.status === true ? "V" : " ", t.title.length > 15 ? t.title.slice(0, 14).trim() + "..." : t.title))
         console.log(modalError === false ? 'Ошибки нет' : 'Ошибка есть')
     }
 
@@ -89,7 +96,7 @@ const Main = () => {
                             return <TaskEdit 
                                 task={task}
                                 key={task.id}
-                                setTaskEdit={setTaskEdit}
+                                taskSaveEdit={taskSaveEdit}
                             />
                             } else {
                             return <Task

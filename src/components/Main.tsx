@@ -11,16 +11,18 @@ import { TaskEdit } from "./tasks/TaskEdit"
 const Main = () => {
 
     // Работа с состоянием модального окна
-    const [modalShow, setModalShow] = useState<boolean>(false)
-    const modalOpen = () => setModalShow(true)
-    const modalClose = () => {setModalShow(false),setTimeout(() => setModalerror(false), 100)}
-    const [modalError, setModalerror] = useState<boolean>(false)
-    const [modalErrorText, setModalerrorText] = useState<string>('')
+    const [modalShow, setModalShow] = useState<boolean>(false);
+    const [tooltipShow, setTooltipShow] = useState<boolean>(false)
+    const modalOpen = () => setModalShow(true);
+    const modalClose = () => {setModalShow(false),setTimeout(() => setModalerror(false), 100)};
+    const [modalError, setModalerror] = useState<boolean>(false);
+    const [modalErrorText, setModalerrorText] = useState<string>('');
 
     // Работа с состоянием задач
     const [task, setTask] = useState<string>('');
     const [taskList, setTaskList] = useState<Array<task>>(taskItems);
-    const [taskEdit, setTaskEdit] = useState<number | null>(null)
+    const [taskEdit, setTaskEdit] = useState<number | null>(null);
+    const [taskEditName, setTaskEditName] = useState<string>('');
     
     const taskCreate = (e: React.KeyboardEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -51,7 +53,10 @@ const Main = () => {
 
     const taskRemove = (id: number) => setTaskList(prev => prev.filter(task => task.id !== id))
 
-    const taskEditChange = (index: number) => setTaskEdit(index)
+    const taskEditChange = (index: number, title: string) => {
+        setTaskEdit(index)
+        setTaskEditName(title)
+    }
 
     const taskStatusChange = (id: number, newStatus: boolean) => {
         const target = taskList.find(t => t.id === id)
@@ -61,15 +66,19 @@ const Main = () => {
 
     const taskSaveEdit = (id: number, e:React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
-        const newList = taskList.map(t => t.id === id ? {...t, title: 'Changed'} : t);
+        const newList = taskList.map(t => t.id === id ? {...t, title: taskEditName} : t);
         setTaskList(newList)
         setTaskEdit(null);
+    }
+
+    const taskRename = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTaskEditName(e.target.value)
+        console.log(taskEditName);
     }
 
     const checkState = () => {
         console.clear()
         taskList.forEach((t, i) => console.log(i+1, t.status === true ? "V" : " ", t.title.length > 15 ? t.title.slice(0, 14).trim() + "..." : t.title))
-        console.log(modalError === false ? 'Ошибки нет' : 'Ошибка есть')
     }
 
     return (
@@ -94,9 +103,11 @@ const Main = () => {
                         {taskList.map((task, index) => {
                             if (taskEdit === index) {
                             return <TaskEdit 
-                                task={task}
                                 key={task.id}
-                                taskSaveEdit={taskSaveEdit}
+                                task={task}
+                                taskEditName={taskEditName}
+                                change={taskRename}
+                                save={taskSaveEdit}
                             />
                             } else {
                             return <Task
@@ -105,7 +116,9 @@ const Main = () => {
                                 key={task.id}
                                 taskRemove={taskRemove}
                                 taskEditChange={taskEditChange}
-                                taskStatusChange={taskStatusChange} />}
+                                taskStatusChange={taskStatusChange}
+                                tooltip={tooltipShow}
+                                setTooltip={setTooltipShow} />}
                             })}
                     </TaskList>
                 : <Empty />}

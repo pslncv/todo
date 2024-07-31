@@ -161,6 +161,17 @@ ul, ol {
         }
     }
 
+    &__edit{
+        width: 100%;
+        padding-right: 10px;
+
+        & input{
+            height: 33px;
+            width: 100%;
+            padding: 10px;
+        }
+    }
+
     &__error {
         margin: 0 auto;
         color: red;
@@ -198,26 +209,87 @@ ul, ol {
     }
 
     &__body {
+        display: flex;
         flex-grow: 1;
-    }
-
-        &__title {
+        
+        & .task__title {
         }
-
-        &__date {
+        
+        & .task__date {
             font-size: 0.75rem;
             color: #747474;
         }
-
-    &__actions {
-        display: flex;
-        align-items: center;
-        column-gap: 15px;
     }
 
-        &__edit,
-        &__delete,
-        &__confirm {
+    &__tooltip {
+        margin-top: 5px;
+        position: absolute;
+        transform: translateX(calc(-50% + 7px));
+        z-index: 1;
+        
+        &-triangle {
+            width: 0; 
+            height: 0; 
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid $blue;
+            margin: 0 auto;
+            transform: translateY(3px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            // &::after {
+            //     content: "";
+            //     border-left: 15px solid transparent;
+            //     border-right: 15px solid transparent;
+            //     border-bottom: 15px solid $blue;
+            //     transform: translateY(3px);
+            // }
+        }
+        
+        &-body {
+            width: 200px;
+            color: black;
+            background-color: #ffe2c0;
+            border: 2px $blue solid;
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px;
+        }
+    
+        &-mark {
+            margin-left: 5px;
+            position: relative;
+            
+            & span {
+                font-size: 10px;
+                height: 14px;
+                width: 14px;
+                color: grey;
+                border: 1px grey solid;
+                border-radius: 50%;
+                margin-top: 3px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__empty {
+        text-align: center;
+    }
+        
+    &__actions {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+
+        & .task__edit-button,
+        & .task__delete-button,
+        & .task__confirm-button {
             height: 30px;
             width: 30px;
             border: $blue 3px solid;
@@ -243,13 +315,14 @@ ul, ol {
             }
         }
 
-        &__edit {
+        & .task__edit-button {
         }
 
-        &__delete {
+        & .task__confirm-button {
+            margin-right: 45px;
         }
-
-    &__empty {
-        text-align: center;
+        
+        & .task__delete-button {
+        }
     }
 }

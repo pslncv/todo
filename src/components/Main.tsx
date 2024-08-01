@@ -12,7 +12,6 @@ const Main = () => {
 
     // Работа с состоянием модального окна
     const [modalShow, setModalShow] = useState<boolean>(false);
-    const [tooltipShow, setTooltipShow] = useState<boolean>(false)
     const modalOpen = () => setModalShow(true);
     const modalClose = () => {setModalShow(false),setTimeout(() => setModalerror(false), 100)};
     const [modalError, setModalerror] = useState<boolean>(false);
@@ -117,8 +116,7 @@ const Main = () => {
                                 taskRemove={taskRemove}
                                 taskEditChange={taskEditChange}
                                 taskStatusChange={taskStatusChange}
-                                tooltip={tooltipShow}
-                                setTooltip={setTooltipShow} />}
+                                />}
                             })}
                     </TaskList>
                 : <Empty />}

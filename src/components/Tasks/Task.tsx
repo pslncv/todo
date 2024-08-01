@@ -1,16 +1,21 @@
+import { useState } from "react";
 import { task } from "../../data/todoList";
 
 interface TaskProps {
     task: task;
     index: number,
-    tooltip: boolean,
-    setTooltip: (parameter: boolean) => void,
     taskRemove: (id: number) => void;
     taskEditChange: (index: number, title: string) => void;
     taskStatusChange: (id: number, newStatus: boolean) => void;
 }
 
-const Task: React.FC<TaskProps> = ({task, index, tooltip, setTooltip, taskRemove, taskEditChange, taskStatusChange}) => {
+const Task: React.FC<TaskProps> = ({task, index, taskRemove, taskEditChange, taskStatusChange}) => {
+
+    const [tooltipShow, setTooltipShow] = useState<boolean>(false);
+
+    const tooltipOpen = () => {setTooltipShow(true)}
+    
+    const tooltipClose = () => {setTooltipShow(false)}
 
     return (
         <li className={task.status ? "task__item complete" : "task__item"}>
@@ -27,11 +32,17 @@ const Task: React.FC<TaskProps> = ({task, index, tooltip, setTooltip, taskRemove
                     <div className="task__date">{task.date}</div>
                 </div>
                 <div className="task__tooltip-mark">
-                    <span onClick={() => setTooltip(true)}>i</span>
-                    {tooltip && <div className="task__tooltip">
+                    <span
+                        onMouseEnter={tooltipOpen}
+                        onMouseLeave={tooltipClose}>i</span>
+                    <div className={tooltipShow ? 'task__tooltip active' : 'task__tooltip'}>
                         <div className="task__tooltip-triangle"></div>
-                        <div className="task__tooltip-body">{task.title.slice(0, 60)}</div>
-                    </div>}
+                        <div className="task__tooltip-body">
+                            <span>Название: {task.title}</span>
+                            <span>Время постановки: {task.date}</span>
+                            <span>Статус: {task.status === true ? 'Завершена' : 'Активна'}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="task__actions">

@@ -1,5 +1,5 @@
 import { UseDate } from "../components/hooks/getDate";
-const {getWeekday} = UseDate()
+const { getWeekday } = UseDate()
 
 // Список задач по умолчанию
 export interface task {
@@ -25,7 +25,7 @@ export const taskItems: Array<task> = [
     {
         id: 3, 
         title: 'Create web-application', 
-        date: `15:15, ${getWeekday("20.04.2024")}, 20.04.2024`, 
+        date: `15:15, ${getWeekday("04.08.2024")}, 04.08.2024`, 
         status: true
     }
 ]

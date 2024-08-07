@@ -77,7 +77,11 @@ const Main = () => {
 
     const checkState = () => {
         console.clear()
-        taskList.forEach((t, i) => console.log(i+1, t.status === true ? "V" : " ", t.title.length > 15 ? t.title.slice(0, 14).trim() + "..." : t.title))
+        taskList.forEach((t, i) => console.log(
+            `id: ${t.id}`,
+            `index: ${i+1}`,
+            `status: ${t.status === true ? "V" : ""}`,
+            `title: ${t.title.length > 15 ? t.title.slice(0, 14).trim() + "..." : t.title}`))
     }
 
     return (

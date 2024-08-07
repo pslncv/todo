@@ -23,7 +23,7 @@ export const taskItems: Array<task> = [
         status: false
     },
     {
-        id: 3, 
+        id: 2, 
         title: 'Create web-application', 
         date: `15:15, ${getWeekday("04.08.2024")}, 04.08.2024`, 
         status: true

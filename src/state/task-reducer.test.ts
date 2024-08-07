@@ -1,89 +1,28 @@
-import { task } from "../data/todoList"
-import { UseDate } from "../components/hooks/getDate"
+import { task, taskItems } from "../data/todoList"
 import { expect, test } from 'vitest'
-import { taskReducer } from './task-reducer'
-const { getWeekday } = UseDate();
-
-test('Delete task correct!', () => {
-
-    const startState: task[] = [
-        {
-            id: 0, 
-            title: 'Записаться к терапевту на первую группу анализов (за три месяца)', 
-            date: `09:00, ${getWeekday("02.09.2024")}, 02.09.2024`, 
-            status: false
-        },
-        {
-            id: 1, 
-            title: 'Записаться к терапевту на вторую группу анализов (за неделю)', 
-            date: `09:00, ${getWeekday("25.11.2024")}, 25.11.2024`, 
-            status: false
-        },
-        {
-            id: 2, 
-            title: 'Create web-application', 
-            date: `15:15, ${getWeekday("04.08.2024")}, 04.08.2024`, 
-            status: true
-        }
-    ];
-    const endState: task[] = taskReducer(startState, {type: "DELETE-TASK", id: 0});
-
-    expect(endState.length).toBe(2);
-})
+import { CheckTask, CreateTaskAC, DeleteTask, taskReducer } from './task-reducer'
+const startState: task[] = taskItems
 
 test('Create new task correct!', () => {
-    const startState: task[] = [
-        {
-            id: 0, 
-            title: 'Записаться к терапевту на первую группу анализов (за три месяца)', 
-            date: `09:00, ${getWeekday("02.09.2024")}, 02.09.2024`, 
-            status: false
-        },
-        {
-            id: 1, 
-            title: 'Записаться к терапевту на вторую группу анализов (за неделю)', 
-            date: `09:00, ${getWeekday("25.11.2024")}, 25.11.2024`, 
-            status: false
-        },
-        {
-            id: 2, 
-            title: 'Create web-application', 
-            date: `15:15, ${getWeekday("04.08.2024")}, 04.08.2024`, 
-            status: true
-        }
-    ];
     const newTaskTitle = "New Task"
-    const endState: task[] = taskReducer(startState, { type: "CREATE-TASK", title: newTaskTitle});
+    const endState: task[] = taskReducer(startState, CreateTaskAC(newTaskTitle));
 
-    expect(endState.length).toBe(4)
+    expect(endState.length).toBe(startState.length + 1)
     expect(endState[endState.length -1].title).toBe(newTaskTitle)
 })
 
-test('Check/Uncheck task correct!', () => {
-    const startState: task[] = [
-        {
-            id: 0, 
-            title: 'Записаться к терапевту на первую группу анализов (за три месяца)', 
-            date: `09:00, ${getWeekday("02.09.2024")}, 02.09.2024`, 
-            status: false
-        },
-        {
-            id: 1, 
-            title: 'Записаться к терапевту на вторую группу анализов (за неделю)', 
-            date: `09:00, ${getWeekday("25.11.2024")}, 25.11.2024`, 
-            status: false
-        },
-        {
-            id: 2, 
-            title: 'Create web-application', 
-            date: `15:15, ${getWeekday("04.08.2024")}, 04.08.2024`, 
-            status: true
-        }
-    ];
-    const targetTask = 1; // Second task
-    const currentStatus = startState[targetTask - 1].status
-    const newStatus = !currentStatus
-    const endState = taskReducer(startState, { type: "CHECK-TASK", id: targetTask - 1 })
+test('Delete task correct!', () => {
+    const targetTask = Math.floor(Math.random() * startState.length); // Random task
+    const endState: task[] = taskReducer(startState, DeleteTask(targetTask));
+    
+    expect(endState.length).toBe(startState.length - 1);
+})
 
-    expect(endState[targetTask - 1].status).toBe(newStatus)
+test('Check/Uncheck task correct!', () => {
+    const targetTask = Math.floor(Math.random() * startState.length); // Random task
+    const currentStatus = startState[targetTask].status
+    const newStatus = !currentStatus
+    const endState = taskReducer(startState, CheckTask(targetTask))
+
+    expect(endState[targetTask].status).toBe(newStatus)
 })

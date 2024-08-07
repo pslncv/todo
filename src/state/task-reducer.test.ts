@@ -1,5 +1,5 @@
-import { task } from "../src/data/todoList"
-import { UseDate } from "../src/components/hooks/getDate"
+import { task } from "../data/todoList"
+import { UseDate } from "../components/hooks/getDate"
 import { expect, test } from 'vitest'
 import { taskReducer } from './task-reducer'
 const { getWeekday } = UseDate();

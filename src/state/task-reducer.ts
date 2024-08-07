@@ -1,5 +1,5 @@
-import { UseDate } from "../src/components/hooks/getDate";
-import { task } from "../src/data/todoList";
+import { UseDate } from "../components/hooks/getDate";
+import { task } from "../data/todoList";
 
 interface Action {
     type: string;
